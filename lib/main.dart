@@ -1,5 +1,8 @@
+import 'package:first_flutter_app/models/location.dart';
 import 'package:flutter/material.dart';
 import 'location_detail.dart';
+
+const String TITLE_APP = 'My App 2';
 
 // void main() => runApp(MyApp());
 void main_() => runApp(MaterialApp(
@@ -29,10 +32,15 @@ void main_() => runApp(MaterialApp(
       ),
     ));
 
-void main()  => runApp(MaterialApp(
-  title: 'New App',
-  home: LocationDetail(),
-));
+void main() {
+  List<Location> locations = Location.fetchAll();
+  Location location = locations.first;
+
+  runApp(MaterialApp(
+    title: 'New App',
+    home: LocationDetail(location),
+  ));
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.

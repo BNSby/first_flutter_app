@@ -9,17 +9,17 @@ class Location {
 
   static List<Location> fetchAll() {
     return [
-      Location('Title 1', 'https://picsum.photos/200', [
-        LocationFact('title 01', 'text text text text text text text 01'),
-        LocationFact('title 02', 'text text text text text text text 02')
+      Location('Заголовок 1', 'https://picsum.photos/600', [
+        LocationFact('Заголовок 01', 'текст сообщения текст сообщения текст сообщения текст сообщения текст сообщения текст сообщения текст сообщения  01'),
+        LocationFact('Заголовок 02', 'текст сообщения текст сообщения текст сообщения текст сообщения текст сообщения текст сообщения текст сообщения  02')
       ]),
-      Location('Title 2', 'https://picsum.photos/200', [
-        LocationFact('title 20', 'text text text text text text text 20'),
-        LocationFact('title 21', 'text text text text text text text 21')
+      Location('Заголовок 2', 'https://picsum.photos/600', [
+        LocationFact('Заголовок 20', 'текст сообщения текст сообщения текст сообщения текст сообщения текст сообщения текст сообщения текст сообщения  20'),
+        LocationFact('Заголовок 21', 'текст сообщения текст сообщения текст сообщения текст сообщения текст сообщения текст сообщения текст сообщения  21')
       ]),
-      Location('Title 3', 'https://picsum.photos/200', [
-        LocationFact('title 30', 'text text text text text text text 30'),
-        LocationFact('title 31', 'text text text text text text text 31')
+      Location('Заголовок 3', 'https://picsum.photos/600', [
+        LocationFact('Заголовок 30', 'текст сообщения текст сообщения текст сообщения текст сообщения текст сообщения текст сообщения текст сообщения  30'),
+        LocationFact('Заголовок 31', 'текст сообщения текст сообщения текст сообщения текст сообщения текст сообщения текст сообщения текст сообщения  31')
       ])
     ];
   }

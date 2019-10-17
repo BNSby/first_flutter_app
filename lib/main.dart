@@ -1,3 +1,4 @@
+import 'package:first_flutter_app/location_list.dart';
 import 'package:first_flutter_app/models/location.dart';
 import 'package:flutter/material.dart';
 import 'location_detail.dart';
@@ -5,7 +6,7 @@ import 'location_detail.dart';
 const String TITLE_APP = 'My App 2';
 
 // void main() => runApp(MyApp());
-void main_() => runApp(MaterialApp(
+void mainX() => runApp(MaterialApp(
       title: 'Flutter App',
       home: Scaffold(
         appBar: AppBar(
@@ -34,11 +35,11 @@ void main_() => runApp(MaterialApp(
 
 void main() {
   List<Location> locations = Location.fetchAll();
-  Location location = locations.first;
+  // Location location = locations.first;
 
   runApp(MaterialApp(
     title: 'New App',
-    home: LocationDetail(location),
+    home: LocationList(locations),
   ));
 }
 

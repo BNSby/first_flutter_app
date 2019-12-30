@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:first_flutter_app/location_list.dart';
 import 'package:first_flutter_app/models/location.dart';
 import 'package:flutter/material.dart';
 import 'location_detail.dart';
+import 'models/post.dart';
+import 'package:http/http.dart' as http;
 
 const String TITLE_APP = 'My App';
 
@@ -43,10 +47,20 @@ void main2() {
   ));
 }
 
+Future<Post> fetchPost() async {
+  final resp = await http.get('https://jsonplaceholder.typicode.com/posts/1');
+
+  if (resp.statusCode == 200) {
+    return Post.fromJson(json.decode(resp.body));
+  } else {
+    throw Exception('failed to load');
+  }
+}
+
 void main() {
   runApp(MyApp(
-    items: List<String>.generate(100, (i) => "List Item $i"),
-  ));
+//    items: List<String>.generate(100, (i) => "List Item $i"),
+      post: fetchPost()));
 }
 
 class SecondScreen extends StatelessWidget {
@@ -61,9 +75,9 @@ class SecondScreen extends StatelessWidget {
 }
 
 class MyApp extends StatelessWidget {
-  final List<String> items;
+  final Future<Post> post;
 
-  MyApp({@required this.items});
+  MyApp({this.post});
 
   @override
   Widget build(BuildContext context) {
@@ -71,21 +85,24 @@ class MyApp extends StatelessWidget {
       title: 'Demo',
       home: Scaffold(
         appBar: AppBar(title: Text('Demo')),
-        body: ListView.separated(
-          itemCount: 25,
-          separatorBuilder: (context, index) => Divider(),
-          itemBuilder: (context, index) {
-            return ListTile(
-              title: Text('${items[index]}'),
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (BuildContext context) =>
-                      SecondScreen(title: items[index]),
-                ),
-              ),
-            );
-          },
+        body: Center(
+          child: FutureBuilder<Post>(
+            future: post,
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.hasData) {
+                return Text(
+                  snapshot.data.title,
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.fade,
+                  style: TextStyle(fontWeight: FontWeight.normal),
+                  textScaleFactor: 1.5,
+                );
+              } else if (snapshot.hasError) {
+                return Text('${snapshot.error}');
+              }
+              return Center(child: CircularProgressIndicator());
+            },
+          ),
         ),
       ),
     );

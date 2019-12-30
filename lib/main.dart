@@ -3,7 +3,7 @@ import 'package:first_flutter_app/models/location.dart';
 import 'package:flutter/material.dart';
 import 'location_detail.dart';
 
-const String TITLE_APP = 'My App 2';
+const String TITLE_APP = 'My App';
 
 // void main() => runApp(MyApp());
 void mainX() => runApp(MaterialApp(
@@ -33,7 +33,7 @@ void mainX() => runApp(MaterialApp(
       ),
     ));
 
-void main() {
+void main2() {
   List<Location> locations = Location.fetchAll();
   // Location location = locations.first;
 
@@ -43,25 +43,51 @@ void main() {
   ));
 }
 
+void main() {
+  runApp(MyApp(
+    items: List<String>.generate(100, (i) => "List Item $i"),
+  ));
+}
+
+class SecondScreen extends StatelessWidget {
+  final String title;
+
+  SecondScreen({this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(appBar: AppBar(title: Text(title)));
+  }
+}
+
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  final List<String> items;
+
+  MyApp({@required this.items});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
+      title: 'Demo',
+      home: Scaffold(
+        appBar: AppBar(title: Text('Demo')),
+        body: ListView.separated(
+          itemCount: 25,
+          separatorBuilder: (context, index) => Divider(),
+          itemBuilder: (context, index) {
+            return ListTile(
+              title: Text('${items[index]}'),
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) =>
+                      SecondScreen(title: items[index]),
+                ),
+              ),
+            );
+          },
+        ),
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
